@@ -2,28 +2,16 @@
 exports.up = async function(knex) {
   await knex.schema.createTable('actions', function(tbl) {
 
-    tbl.increments()
-      .unique()
+    tbl.increments();
 
-    tbl
-      .string('description')
-      .notNullable()
+    tbl.string("description", 1000).notNullable();
 
-    tbl
-      .string('notes')
+    tbl.string("notes", 1000).notNullable();
 
-    tbl
-      .integer('project_id')
-      .unsigned()
-      .notNullable()
-      .references('id')
-      .inTable('projects')
-      .onDelete('RESTRICT')
-      .onUpdate('CASCADE')
+    tbl.boolean("completed").defaultTo(false);
 
-    tbl
-      .boolean('completed')
-  })
+    tbl.timestamps(true, true);
+  });
 };
 
 exports.down = async function(knex) {
