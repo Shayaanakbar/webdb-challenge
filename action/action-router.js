@@ -14,28 +14,27 @@ const knexConfig = {
 const db = knex(knexConfig);
 
 //check
-router.get('/', async (req, res) => {
-  try {
-    const action = await db('actions');
-    res.status(200).json(action)
-  } catch (error) {
-    res.status(500).json(error);
-  }
+router.get('/', (req, res) => {
+  db('actions')
+    .then(actions => {
+      res.status(200).json(actions)
+    })
+    .catch(err => {
+      res.status(500).json(err)
+    })
 });
 
 router.post('/', async (req, res) => {
   try {
-    const [id] = await db('actions').insert(req.body);
-
-    const action = await db('actions')
-      .where({ id })
-      .first();
-
-    res.status(201).json(action);
+    const action = await db('actions').insert(req.body)
+    res.status(201).json(action)
   } catch (error) {
-    const message = errors[error.errno] || 'We ran into an error';
-    res.status(500).json({ message, error });
+    res.status(500).json({ error: 'There was an error posting that!' })
+    console.log(error)
+
   }
 });
+
+
 
 module.exports = router;
