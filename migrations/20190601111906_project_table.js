@@ -3,6 +3,7 @@ exports.up = async function(knex) {
   await knex.schema.createTable('projects', function(tbl) {
 
     tbl.increments()
+      .unique()
 
     tbl
       .string('name', 128)
@@ -13,7 +14,8 @@ exports.up = async function(knex) {
       .notNullable()
 
     tbl
-      .boolean('completed').defaultTo('false');
+      .boolean('completed')
+      .notNullable()
   })
 };
 

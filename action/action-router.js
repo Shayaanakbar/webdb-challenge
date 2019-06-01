@@ -23,14 +23,18 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', async (req,res) => {
+router.post('/', async (req, res) => {
   try {
-    const action = await db('actions').insert(req.body)
+    const [id] = await db('actions').insert(req.body);
+
+    const action = await db('actions')
       .where({ id })
-      .first()
-      res.status(201).json(action)
+      .first();
+
+    res.status(201).json(action);
   } catch (error) {
-    res.status(500).json({ error: 'there was an error posting that' })
+    const message = errors[error.errno] || 'We ran into an error';
+    res.status(500).json({ message, error });
   }
 });
 

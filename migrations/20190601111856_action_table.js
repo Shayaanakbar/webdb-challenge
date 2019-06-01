@@ -3,6 +3,7 @@ exports.up = async function(knex) {
   await knex.schema.createTable('actions', function(tbl) {
 
     tbl.increments()
+      .unique()
 
     tbl
       .string('description')
@@ -10,10 +11,18 @@ exports.up = async function(knex) {
 
     tbl
       .string('notes')
-      .notNullable()
 
     tbl
-      .boolean('completed').defaultTo('false');
+      .integer('project_id')
+      .unsigned()
+      .notNullable()
+      .references('id')
+      .inTable('projects')
+      .onDelete('RESTRICT')
+      .onUpdate('CASCADE')
+
+    tbl
+      .boolean('completed')
   })
 };
 
