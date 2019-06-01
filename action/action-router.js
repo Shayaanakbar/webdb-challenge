@@ -25,7 +25,7 @@ router.post('/', async (req,res) => {
       .first()
       res.status(201).json(action)
   } catch (error) {
-    res.status(500).json({ error: there was an error posting that })
+    res.status(500).json({ error: 'there was an error posting that' })
   }
 });
 
