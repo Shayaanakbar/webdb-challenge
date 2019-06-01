@@ -14,8 +14,13 @@ const knexConfig = {
 const db = knex(knexConfig);
 
 //check
-router.get('/', (req, res) => {
-  res.send('Hello World!')
+router.get('/', async (req, res) => {
+  try {
+    const action = await db('actions');
+    res.status(200).json(action)
+  } catch (error) {
+    res.status(500).json(error);
+  }
 });
 
 router.post('/', async (req,res) => {
