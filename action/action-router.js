@@ -18,6 +18,15 @@ router.get('/', (req, res) => {
   res.send('Hello World!')
 });
 
-router.post
+router.post('/', async (req,res) => {
+  try {
+    const action = await db('actions').insert(req.body)
+      .where({ id })
+      .first()
+      res.status(201).json(action)
+  } catch (error) {
+    res.status(500).json({ error: there was an error posting that })
+  }
+});
 
 module.exports = router;

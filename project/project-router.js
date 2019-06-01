@@ -24,8 +24,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const [id] = await db('projects').insert(req.body);
-    const project = await db('projects')
+    const project = await db('projects').insert(req.body)
       .where({ id })
       .first()
       res.status(201).json(project)

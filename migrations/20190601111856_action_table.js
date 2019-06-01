@@ -10,8 +10,9 @@ exports.up = async function(knex) {
 
     tbl
       .integer('project_id')
+      .unsigned()
       .notNullable()
-      .references()
+      .references('id')
       .inTable('projects')
 
     tbl

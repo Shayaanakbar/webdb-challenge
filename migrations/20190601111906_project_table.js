@@ -1,6 +1,6 @@
 
 exports.up = async function(knex) {
-  await knex.schema.createTable('actions', function(tbl) {
+  await knex.schema.createTable('projects', function(tbl) {
 
     tbl.increments()
 
