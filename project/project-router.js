@@ -37,18 +37,19 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/project/:id', (req, res) => {
-  const { id } = req.params;
+router.get('/:id', (req, res) => {
+  const {id} = req.params;
   db('projects')
-    .where({ id: id })
+    .where({id: id})
     .first()
     .then(projects => {
       db('actions')
-        .where({ project_id: id }).then(actions => {
+        .where({project_id: id}).then(actions => {
         (projects.actions = actions);
         return res.status(200).json(projects);
       });
     })
 });
 
-module.exports = router;
+
+module.exports = router

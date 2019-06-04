@@ -11,6 +11,14 @@ exports.up = async function(knex) {
     tbl.boolean("completed").defaultTo(false);
 
     tbl.timestamps(true, true);
+
+    tbl
+      .integer('project_id')
+      .references('id')
+      .inTable('projects')
+      .onDelete('CASCADE')
+      .onUpdate('CASCADE')
+      .notNullable()
   });
 };
 
